@@ -1,0 +1,129 @@
+@import 'variables';
+
+.filter {
+
+  form {
+    display: flex;
+    flex-direction: column;
+    padding: 1.25rem;
+    background-color: $white;
+    border: 1px solid $grey-200;
+    border-radius: 0.75rem;
+  }
+
+  input {
+    display: flex;
+    height: auto;
+    font-family: 'Inter', sans-serif;
+    padding: 11px 0.75rem;
+    border: 1px solid $grey-300;
+    border-radius: 0.5rem;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.875rem;
+    line-height: 1.125rem;
+
+
+    &::placeholder {
+      color: $grey-500;
+
+    }
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+
+  &__title {
+    font-weight: 700;
+    font-size: 20px;
+  }
+
+  &__reset {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    color: $grey-500;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+
+    svg {
+      stroke: $grey-500;
+      cursor: pointer;
+      transition: opacity 0.2s ease-in;
+    }
+
+    &:hover {
+      color: $blue-400;
+
+      svg {
+        stroke: $blue-400;
+      }
+    }
+
+    &:active {
+      color: $blue-500-main;
+
+      svg {
+        stroke: $blue-500-main;
+      }
+    }
+  }
+
+  &__catalogues {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 20px;
+  }
+
+  &__select {
+  }
+
+  &__subtitle {
+    font-weight: 700;
+  }
+
+  &__salary {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 20px;
+  }
+}
+
+.mantine-Select-rightSection {
+  top: 0.5rem;
+  bottom: 0.5rem;
+  right: 0.75rem;
+}
+
+.mantine-NumberInput-rightSection {
+  top: 0.5rem;
+  bottom: 0.5rem;
+  right: 0.75rem;
+
+  button {
+    border: none;
+
+    svg {
+      stroke: $grey-500;
+    }
+
+    &:hover {
+      background-color: transparent;
+    }
+
+  }
+}
+
+
+
+
+

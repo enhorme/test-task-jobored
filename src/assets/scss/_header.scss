@@ -21,6 +21,16 @@
       font-size: 24px;
       letter-spacing: -0.02em;
       color: $black;
+      transition: 0.2s ease-in;
+
+      &:hover {
+        color: lighten($black, 20%);
+
+      }
+
+      &:active {
+        color: $black;
+      }
     }
   }
 }

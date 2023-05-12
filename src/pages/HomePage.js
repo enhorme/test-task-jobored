@@ -1,9 +1,9 @@
-import React from 'react'
+import Filter from '../components/Filter'
 
 const HomePage = () => {
   return (
     <div>
-      HOME PAGE
+      <Filter />
     </div>
   )
 }
