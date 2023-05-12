@@ -1,0 +1,26 @@
+@import "variables";
+
+.primary-button {
+  padding: 0.6rem 1.25rem;
+  background: $blue-500-main;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 150%;
+  color: $white;
+  cursor: pointer;
+  transition: 0.2s ease-in;
+
+  &:hover {
+    background-color: $blue-400;
+  }
+
+  &:active {
+    background-color: $blue-600;
+  }
+
+  &-small {
+    padding: 0.344px 1.25rem;
+  }
+}

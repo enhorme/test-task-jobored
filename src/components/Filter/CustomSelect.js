@@ -1,34 +1,41 @@
-import { Select } from '@mantine/core'
+import { Loader, Select } from '@mantine/core'
 
 import { useState } from 'react'
 import {
   ReactComponent as SelectArrow
 } from '../../assets/images/select-arrow.svg'
 
-const FilterSelect = () => {
+import { useGetCataloguesQuery } from '../../redux/api/cataloguesApi'
+
+const CustomSelect = ({ catalog, setCatalog }) => {
   const [open, setIsOpen] = useState(false)
+  const { data, isFetching, isLoading, isSuccess } = useGetCataloguesQuery()
 
-  const mockList = ['1', '2', '3']
-
+  const allCatalogues = data?.map(
+    ({ key, title_rus }) => ({ value: key, label: title_rus }))
   return (
     <Select
       data-elem='industry-select'
-      className='custom-select'
       rightSection={
-        <SelectArrow className={open ? 'select-arrow-open' : undefined} />
+        isLoading || isFetching ? (
+          <Loader color='grey' size='xs' />
+        ) : (
+          <SelectArrow className={open ? 'select-arrow-open' : undefined} />
+        )
       }
+      disabled={!isSuccess}
       onDropdownClose={() => setIsOpen(false)}
       onDropdownOpen={() => setIsOpen(true)}
-      rightSectionWidth={30}
       styles={{
         cursor: 'pointer',
         rightSection: { pointerEvents: 'none' }
       }}
-      onChange={console.log}
+      value={catalog}
+      onChange={setCatalog}
       placeholder='Выберете отрасль'
-      data={mockList}
+      data={allCatalogues || []}
     />
   )
 }
 
-export default FilterSelect
+export default CustomSelect
