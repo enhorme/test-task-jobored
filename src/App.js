@@ -6,6 +6,7 @@ function App() {
   return <Routes>
     <Route element={<MainLayout />}>
       <Route path='/' element={<HomePage />} />
+      <Route path='/favorites' element={<div>favorites</div>} />
     </Route>
   </Routes>
 }
