@@ -1,0 +1,29 @@
+@import "variables";
+
+.search {
+  width: 100%;
+  background: $white;
+  display: flex;
+  border: 1px solid $grey-200;
+  border-radius: 0.5rem;
+  align-items: center;
+  padding: 0 13px 0 12px;
+  justify-content: space-between;
+  position: relative;
+  gap: 0.589rem;
+
+  &__input {
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+    border: 1px solid transparent;
+    outline: none;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    padding: 13.5px 0;
+
+    &::placeholder {
+      color: $grey-500;
+    }
+  }
+}

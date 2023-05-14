@@ -1,10 +1,12 @@
 import Filter from '../components/Filter'
+import Search from '../components/Search'
 
 const HomePage = () => {
   return (
-    <div>
+    <>
       <Filter />
-    </div>
+      <Search />
+    </>
   )
 }
 
