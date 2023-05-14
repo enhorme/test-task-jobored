@@ -9,11 +9,13 @@ import { useGetCataloguesQuery } from '../../redux/api/cataloguesApi'
 
 const CustomSelect = ({ catalog, setCatalog }) => {
   const [open, setIsOpen] = useState(false)
+
   const { data, isFetching, isLoading, isSuccess } = useGetCataloguesQuery()
 
   const allCatalogues = data?.map(
-    ({ key, title_rus }) => ({ value: key, label: title_rus }))
+    ({ key, title_rus }) => ({ value: key.toString(), label: title_rus }))
   return (
+
     <Select
       data-elem='industry-select'
       rightSection={

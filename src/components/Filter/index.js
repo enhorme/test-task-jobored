@@ -1,13 +1,17 @@
 import { NumberInput } from '@mantine/core'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { ReactComponent as Close } from '../../assets/images/close.svg'
+import { setFilters } from '../../redux/slices/filterSlice'
 import PrimaryButton from '../PrimaryButton'
 import CustomSelect from './CustomSelect'
 
 const Filter = () => {
   const [paymentFrom, setPaymentFrom] = useState('')
   const [paymentTo, setPaymentTo] = useState('')
-  const [catalog, setCatalog] = useState('null')
+  const [catalog, setCatalog] = useState('')
+
+  const dispatch = useDispatch()
 
   const handleResetForm = () => {
     setPaymentFrom('')
@@ -15,9 +19,18 @@ const Filter = () => {
     setCatalog('')
   }
 
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    dispatch(setFilters({
+      payment_from: paymentFrom,
+      payment_to: paymentTo,
+      catalogues: catalog
+    }))
+  }
+
   return (
     <article className='filter'>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className='filter__header'>
           <span className='filter__title'>Фильтры</span>
           <div className='filter__reset' onClick={handleResetForm}>
@@ -28,7 +41,7 @@ const Filter = () => {
         <div className='filter__select'>
           <div className='filter__catalogues'>
             <span className='filter__subtitle'>Отрасль</span>
-            <CustomSelect catalag={catalog} setCatalog={setCatalog} />
+            <CustomSelect catalog={catalog} setCatalog={setCatalog} />
           </div>
 
           <div className='filter__salary'>

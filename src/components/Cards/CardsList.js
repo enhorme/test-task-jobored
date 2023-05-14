@@ -1,14 +1,16 @@
-import { Loader } from '@mantine/core'
+import { useSelector } from 'react-redux'
 import { useGetVacanciesQuery } from '../../redux/api/vacanciesApi'
 
 import EmptyState from '../EmptyState'
+import Spinner from '../Spinner'
 import CardItem from './CardItem'
 
 const CardsList = () => {
-  const { data, isFetching, isLoading, isError } = useGetVacanciesQuery()
+  const filter = useSelector(state => state.filter)
+  const { data, isFetching, isLoading, isError } = useGetVacanciesQuery(filter)
 
   if (isFetching || isLoading) {
-    return <Loader />
+    return <Spinner />
   }
 
   if (isError) {
