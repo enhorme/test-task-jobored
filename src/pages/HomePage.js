@@ -1,3 +1,4 @@
+import Cards from '../components/Cards'
 import Container from '../components/Container'
 import Filter from '../components/Filter'
 import Search from '../components/Search'
@@ -9,6 +10,7 @@ const HomePage = () => {
         <Filter />
         <section>
           <Search />
+          <Cards />
         </section>
       </Container>
 

@@ -11,7 +11,7 @@ const EmptyState = () => {
       <EmptyStateLogo />
       {location.pathname === '/favorites' &&
         <> <span className='empty___text'>Упс, здесь еще ничего нет!</span>
-          <SecondaryButton text={'Поиск вакансий'} /></>}
+          <SecondaryButton text={'Поиск Вакансий'} /></>}
 
     </section>
   )

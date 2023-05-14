@@ -10,6 +10,7 @@
 
   &___text {
     font-weight: 700;
+    line-height: 29px;
     font-size: 1.5rem;
   }
 }
@@ -18,10 +19,10 @@
   font-family: 'Open Sans', sans-serif;
   font-weight: 600;
   font-size: 0.875rem;
-  padding: 0.625rem 1.5rem;
+  padding: 10px 1.5rem;
   color: $blue-600;
+  border: 1px solid transparent;
   background-color: $blue-100;
-  border: none;
   border-radius: 0.5rem;
   transition: 0.15s ease-in;
 
