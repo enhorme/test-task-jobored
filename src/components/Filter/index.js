@@ -16,7 +16,7 @@ const Filter = () => {
   }
 
   return (
-    <section className='filter'>
+    <article className='filter'>
       <form>
         <div className='filter__header'>
           <span className='filter__title'>Фильтры</span>
@@ -59,7 +59,7 @@ const Filter = () => {
           title={'Применить'}
         />
       </form>
-    </section>
+    </article>
   )
 }
 

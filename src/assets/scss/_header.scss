@@ -2,13 +2,14 @@
 
 .header {
   background-color: $white;
+  margin-bottom: 40px;
 
   &__container {
     display: flex;
     justify-content: flex-start;
     align-items: center;
     padding: 1.5rem 0;
-    gap: 17.5rem;
+    gap: 17.55rem;
   }
 
   &__logo {
@@ -18,7 +19,9 @@
 
     a {
       font-family: "Poppins", sans-serif;
+      font-weight: 600;
       font-size: 24px;
+      line-height: 36px;
       letter-spacing: -0.02em;
       color: $black;
       transition: 0.2s ease-in;
@@ -39,7 +42,7 @@
   &__list {
     display: flex;
     align-items: center;
-    gap: 3.75rem;
+    gap: 61px;
   }
 
   &__item {

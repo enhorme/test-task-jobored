@@ -1,10 +1,12 @@
 @import "variables";
 
 .primary-button {
-  padding: 0.6rem 1.25rem;
+  font-family: 'Inter', sans-serif;
+  padding: 9.5px 1.25rem;
   background: $blue-500-main;
   border: none;
   border-radius: 0.5rem;
+  font-style: normal;
   font-weight: 500;
   font-size: 0.875rem;
   line-height: 150%;
@@ -21,6 +23,6 @@
   }
 
   &-small {
-    padding: 0.344rem 1.25rem;
+    padding: 5.5px 1.25rem;
   }
 }

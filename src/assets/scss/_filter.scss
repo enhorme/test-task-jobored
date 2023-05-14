@@ -1,11 +1,14 @@
 @import 'variables';
 
 .filter {
+  flex-grow: 0;
+
 
   form {
     display: flex;
     flex-direction: column;
-    padding: 1.25rem;
+    justify-content: flex-start;
+    padding: 1.2rem;
     background-color: $white;
     border: 1px solid $grey-200;
     border-radius: 0.75rem;
@@ -15,7 +18,7 @@
     display: flex;
     height: auto;
     font-family: 'Inter', sans-serif;
-    padding: 11px 0.75rem;
+    padding: 11px 0.7rem;
     border: 1px solid $grey-300;
     border-radius: 0.5rem;
     font-style: normal;
@@ -35,11 +38,13 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2rem;
+    gap: 67px;
   }
 
   &__title {
     font-weight: 700;
     font-size: 20px;
+    line-height: 1;
   }
 
   &__reset {
@@ -90,6 +95,7 @@
 
 
   &__subtitle {
+    line-height: 19px;
     font-weight: 700;
   }
 
@@ -102,15 +108,15 @@
 }
 
 .mantine-Select-rightSection {
-  top: 0.5rem;
-  bottom: 0.5rem;
-  right: 0.75rem;
+  top: 0.4rem;
+  bottom: 0.4rem;
+  right: 0.35rem;
 }
 
 .mantine-NumberInput-rightSection {
-  top: 0.5rem;
-  bottom: 0.5rem;
-  right: 0.75rem;
+  top: 0.4rem;
+  bottom: 0.4rem;
+  right: 0.35rem;
 
   button {
     border: none;
