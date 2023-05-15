@@ -1,8 +1,8 @@
 @import "variables";
 
 .primary-button {
-  font-family: 'Inter', sans-serif;
-  padding: 9.5px 1.25rem;
+  font-family: $font-main, sans-serif;
+  padding: 0.594rem 1.25rem;
   background: $blue-500-main;
   border: none;
   border-radius: 0.5rem;
@@ -23,6 +23,6 @@
   }
 
   &-small {
-    padding: 5.5px 1.25rem;
+    padding: 0.344rem 1.25rem;
   }
 }

@@ -1,11 +1,22 @@
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { ReactComponent as Location } from '../../assets/images/location.svg'
 import { ReactComponent as Star } from '../../assets/images/star.svg'
+import { selectFavorites } from '../../redux/selectors'
+import {
+  addToFavorite,
+  removeFromFavorite
+} from '../../redux/slices/favoriteSlice'
 import { conditionSalaryString } from '../../utils/'
 
 const CardItem = ({ vacancy }) => {
+  const [inFavorites, setInFavorites] = useState(false)
+  const favorites = useSelector(selectFavorites)
 
-  let {
+  const dispatch = useDispatch()
+
+  const {
     profession,
     id,
     town: { title: town },
@@ -22,6 +33,21 @@ const CardItem = ({ vacancy }) => {
     currency,
     agreement
   })
+
+  useEffect(() => {
+    if (favorites?.data?.findIndex((vacancy) => vacancy.id === id) !== -1) {
+      setInFavorites(true)
+    }
+  }, [])
+
+  const handleChangeFavorite = () => {
+    if (inFavorites) {
+      dispatch(removeFromFavorite({ id }))
+    } else {
+      dispatch(addToFavorite(vacancy))
+    }
+    setInFavorites((prev) => !prev)
+  }
 
   return (
     <div className='card-item'>
@@ -40,7 +66,10 @@ const CardItem = ({ vacancy }) => {
         </div>
       </div>
       <Star
-        className={`card-item__favorites `}
+        onClick={handleChangeFavorite}
+        className={`card-item__favorites ${
+          inFavorites && 'card-item__favorites-liked'
+        }`}
       />
     </div>
   )

@@ -7,9 +7,14 @@ const CLIENT_SECRET = process.env.REACT_APP_AUTH_CLIENT_SECRET
 const baseQuery = fetchBaseQuery({
   baseUrl: BASE_URL,
   credentials: 'include',
-  prepareHeaders: (headers) => {
+  prepareHeaders: (headers, { getState }) => {
+    const token = getState().auth.token
+    if (token) {
+      headers.set('Authorization', `Bearer ${token}`)
+    }
     headers.set('x-secret-key', XSECRETKEY)
     headers.set('X-Api-App-Id', CLIENT_SECRET)
+
     return headers
   }
 })
