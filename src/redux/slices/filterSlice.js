@@ -18,10 +18,21 @@ const filterSlice = createSlice({
     },
     setPage: (state, action) => {
       state.page = action.payload.page
+    },
+    setKeyword: (state, action) => {
+      state.keyword = action.payload.keyword
+    },
+    resetFilter: () => {
+      return initialState
     }
   }
 })
 
-export const { setFilters, setPage } = filterSlice.actions
+export const {
+  setFilters,
+  setPage,
+  setKeyword,
+  resetFilter
+} = filterSlice.actions
 
 export default filterSlice.reducer

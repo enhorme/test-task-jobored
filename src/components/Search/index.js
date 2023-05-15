@@ -1,13 +1,17 @@
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { ReactComponent as SearchIcon } from '../../assets/images/search.svg'
+import { setKeyword } from '../../redux/slices/filterSlice'
 
 import PrimaryButton from '../PrimaryButton'
 
 const Search = () => {
   const [search, setSearch] = useState('')
+  const dispatch = useDispatch()
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    dispatch(setKeyword({ keyword: search }))
     setSearch('')
   }
 

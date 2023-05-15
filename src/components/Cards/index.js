@@ -1,7 +1,9 @@
+import Pagination from '../Pagination'
+import Search from '../Search'
 import CardsList from './CardsList'
 
 const Cards = () => {
-  return <CardsList />
+  return <><Search /><CardsList /><Pagination /></>
 }
 
 export default Cards

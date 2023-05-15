@@ -2,7 +2,7 @@ import { NumberInput } from '@mantine/core'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { ReactComponent as Close } from '../../assets/images/close.svg'
-import { setFilters } from '../../redux/slices/filterSlice'
+import { resetFilter, setFilters } from '../../redux/slices/filterSlice'
 import PrimaryButton from '../PrimaryButton'
 import CustomSelect from './CustomSelect'
 
@@ -17,6 +17,7 @@ const Filter = () => {
     setPaymentFrom('')
     setPaymentTo('')
     setCatalog('')
+    dispatch(resetFilter())
   }
 
   const handleSubmit = (e) => {

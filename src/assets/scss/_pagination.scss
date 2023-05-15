@@ -1,0 +1,59 @@
+@import "variables";
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 44px;
+  gap: 0.5rem;
+
+  li {
+    a {
+      min-height: 2rem;
+      min-width: 2rem;
+      padding: 0 0.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: $white;
+      border: 1px solid $grey-300;
+      border-radius: 0.25rem;
+      cursor: pointer;
+
+      svg {
+        fill: $grey-600;
+      }
+
+      &:hover {
+        background-color: $blue-400;
+      }
+    }
+  }
+
+  .selected {
+    a {
+      background-color: $blue-500-main;
+      border: 1px solid $blue-500-main;
+      color: $white;
+
+      &:hover {
+        background-color: $blue-500-main;
+      }
+    }
+  }
+
+  .disabled {
+    a {
+      border: 1px solid $grey-200;
+
+      svg {
+        fill: $grey-300;
+      }
+
+      &:hover {
+        cursor: auto;
+        background-color: $white;
+        color: #3b7cd3;
+      }
+    }
+  }
+}
