@@ -25,7 +25,9 @@ const Filter = () => {
     dispatch(setFilters({
       payment_from: paymentFrom,
       payment_to: paymentTo,
-      catalogues: catalog
+      catalogues: catalog,
+      no_agreement: !!paymentFrom ||
+      !!paymentTo ? 1 : 0
     }))
   }
 
@@ -68,7 +70,6 @@ const Filter = () => {
           </div>
         </div>
         <PrimaryButton
-          data-elem='search-button'
           type='submit'
           title={'Применить'}
         />

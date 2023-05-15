@@ -27,15 +27,14 @@ const Search = () => {
     <form className='search' onSubmit={handleSubmit}>
       <SearchIcon />
       <input
-        placeholder='Введите название вакансии'
         data-elem='search-input'
+        placeholder='Введите название вакансии'
         className='search__input'
         type='text'
         value={search}
         onChange={handleChange}
       />
       <PrimaryButton
-        data-elem='search-button'
         title='Поиск'
         size='small'
         type='submit'

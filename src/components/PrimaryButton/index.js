@@ -1,8 +1,9 @@
-const PrimaryButton = ({ size = 'm', title, ...props }) => {
+const PrimaryButton = ({ size = 'm', title }) => {
   return (
     <button
       className={`primary-button ${size === 'small' && 'primary-button-small'}`}
-      {...props}
+      data-elem='search-button'
+
     >
       {title}
     </button>

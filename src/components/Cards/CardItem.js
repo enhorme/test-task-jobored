@@ -50,7 +50,7 @@ const CardItem = ({ vacancy }) => {
   }
 
   return (
-    <div className='card-item'>
+    <div className='card-item' data-elem={`vacancy-${id}`}>
       <div className='card-item__info'>
         <NavLink className='info__title' to={`/vacancies/${id}`}>
           {profession}
@@ -66,6 +66,7 @@ const CardItem = ({ vacancy }) => {
         </div>
       </div>
       <Star
+        data-elem={`vacancy-${id}-shortlist-button`}
         onClick={handleChangeFavorite}
         className={`card-item__favorites ${
           inFavorites && 'card-item__favorites-liked'

@@ -5,12 +5,14 @@ const authSlice = createSlice({
   initialState: {
     user: 'PARALECTTESTTASK',
     token: null,
-    refresh: null
+    refresh: null,
+    ttl: null
   },
   reducers: {
     setCredentials: (state, action) => {
       state.token = action.payload.token
       state.refresh = action.payload.refresh
+      state.ttl = action.payload.ttl
     }
   }
 })
