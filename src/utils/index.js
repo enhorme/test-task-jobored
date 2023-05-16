@@ -22,14 +22,12 @@ const conditionSalaryString = ({
   }
   return salary
 }
-
-const paginateFavoritesArrayForQuery = ({ ids, currentPage }) => {
-  const totalPages = Math.ceil(ids.length / 4)
-  const startIdx = (currentPage - 1) * 4
-  const endIdx = startIdx + 4
-  const currentPageItems = ids.slice(startIdx, endIdx)
-
-  return { currentPageItems, totalPages }
+const parseIdToInteger = (string) => {
+  const number = parseInt(string)
+  if (isNaN(number)) {
+    return 0
+  }
+  return number
 }
 
-export { conditionSalaryString, paginateFavoritesArrayForQuery }
+export { conditionSalaryString, parseIdToInteger }

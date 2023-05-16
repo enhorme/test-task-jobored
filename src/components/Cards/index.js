@@ -19,8 +19,10 @@ const Cards = () => {
 
   const vacancies = data?.objects || []
 
-  return <><CardsList vacancies={vacancies} /><Pagination data={data}
-                                                          currentPage={filter?.page} /></>
+  return (<>
+    <CardsList vacancies={vacancies} />
+    <Pagination data={data} currentPage={filter?.page} />
+  </>)
 }
 
 export default Cards
