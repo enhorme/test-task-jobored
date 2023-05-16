@@ -5,7 +5,6 @@ const initialState = {
   catalogues: '',
   payment_from: '',
   payment_to: '',
-  no_agreement: 0,
   page: 1,
   published: 1,
   count: 4

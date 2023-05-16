@@ -1,12 +1,12 @@
 import { useSelector } from 'react-redux'
 import { useGetVacanciesQuery } from '../../redux/api/vacanciesApi'
-import { selectFilter } from '../../redux/selectors'
+import { selectFilterWithoutEmptyFields } from '../../redux/selectors'
 import Pagination from '../Pagination'
 import Spinner from '../Spinner'
 import CardsList from './CardsList'
 
 const Cards = () => {
-  const filter = useSelector(selectFilter)
+  const filter = useSelector(selectFilterWithoutEmptyFields)
   const { data, isFetching, isLoading, isError } = useGetVacanciesQuery(filter)
 
   if (isFetching || isLoading) {

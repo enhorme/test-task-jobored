@@ -4,6 +4,25 @@ const selectFavorites = (state) => state.favorite
 const selectFilter = (state) => state.filter
 const setlectAuthState = (state) => state.auth
 
+const selectFilterWithoutEmptyFields = createSelector(
+  [selectFilter],
+  (filter) => {
+    const filteredState = Object.keys(filter).reduce((result, key) => {
+      const value = filter[key]
+      if (value !== '' && value !== 0) {
+        result[key] = value
+      }
+      return result
+    }, {})
+
+    if (filter.payment_to || filter.payment_from) {
+      filteredState.no_agreement = 1
+    }
+
+    return filteredState
+  }
+)
+
 const selectFavoritesPage = createSelector(selectFavorites,
   (favorites) => favorites.page)
 const selectFavoritesData = createSelector(selectFavorites,
@@ -31,7 +50,7 @@ const selectDataAndTotalPagesForFavoritePage = createSelector(
 
 export {
   selectFavorites,
-  selectFilter,
+  selectFilterWithoutEmptyFields,
   setlectAuthState,
   selectDataAndTotalPagesForFavoritePage
 }
