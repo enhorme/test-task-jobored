@@ -26,7 +26,8 @@ const Pagination = ({ data, currentPage }) => {
       previousLabel={<Prev />}
       forcePage={currentPage - 1}
       onPageChange={handlePageClick}
-      pageRangeDisplayed={3}
+      marginPagesDisplayed={2}
+      pageRangeDisplayed={2}
       pageCount={data?.totalPages || 0}
       renderOnZeroPageCount={null}
     />
