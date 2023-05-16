@@ -23,4 +23,13 @@ const conditionSalaryString = ({
   return salary
 }
 
-export { conditionSalaryString }
+const paginateFavoritesArrayForQuery = ({ ids, currentPage }) => {
+  const totalPages = Math.ceil(ids.length / 4)
+  const startIdx = (currentPage - 1) * 4
+  const endIdx = startIdx + 4
+  const currentPageItems = ids.slice(startIdx, endIdx)
+
+  return { currentPageItems, totalPages }
+}
+
+export { conditionSalaryString, paginateFavoritesArrayForQuery }

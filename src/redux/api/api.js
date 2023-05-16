@@ -16,6 +16,7 @@ const baseQuery = fetchBaseQuery({
     }
     headers.set('x-secret-key', XSECRETKEY)
     headers.set('X-Api-App-Id', CLIENT_SECRET)
+    headers.set('content-type', 'application/x-www-form-urlencoded')
 
     return headers
   }
@@ -23,18 +24,17 @@ const baseQuery = fetchBaseQuery({
 
 const baseQueryWithReauth = async (args, api, extraOptions) => {
   const auth = api.getState().auth
-  if (!auth.token || auth.token.ttl < Date.now() / 1000) {
+  if (!auth.token || auth.ttl < Date.now() / 1000) {
 
     const { data } = await baseQuery({
-      url: 'oauth2/password/',
-      method: 'POST',
+      url: '/oauth2/password/',
+      method: 'GET',
       params: authConfig,
       credentials: 'include'
     }, api, extraOptions)
 
     api.dispatch(setCredentials({
       token: data?.access_token,
-      refresh: data?.refresh_token,
       ttl: data?.ttl
     }))
   }

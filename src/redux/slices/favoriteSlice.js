@@ -1,24 +1,31 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const filterSlice = createSlice({
+const favoriteSlice = createSlice({
   name: 'favorites',
   initialState: {
     data: [],
-    total: 0
+    page: 1
   },
   reducers: {
     addToFavorite: (state, action) => {
       state.data.push(action.payload)
-      state.total++
+
     },
     removeFromFavorite: (state, action) => {
       state.data = state.data.filter(
         (vacancy) => vacancy.id !== action.payload.id)
-      state.total--
+
+    },
+    setFavoritePage: (state, action) => {
+      state.page = action.payload.page
     }
   }
 })
 
-export const { addToFavorite, removeFromFavorite } = filterSlice.actions
+export const {
+  addToFavorite,
+  removeFromFavorite,
+  setFavoritePage
+} = favoriteSlice.actions
 
-export default filterSlice.reducer
+export default favoriteSlice.reducer

@@ -1,15 +1,21 @@
 import { useSelector } from 'react-redux'
 import CardsList from '../components/Cards/CardsList'
 import EmptyState from '../components/EmptyState'
-import { selectFavorites } from '../redux/selectors'
+import Pagination from '../components/Pagination'
+import { selectDataAndTotalPagesForFavoritePage } from '../redux/selectors'
 
 const FavoritePage = () => {
-  const favorites = useSelector(selectFavorites)
-  if (!favorites?.data?.length)
+  const { data, totalPages, currentPage } = useSelector(
+    selectDataAndTotalPagesForFavoritePage)
+
+  if (!data?.length)
     return (
       <EmptyState />
     )
-  return <CardsList vacancies={favorites.data} />
+  return (<section className='favorites'>
+    <CardsList vacancies={data} />
+    <Pagination currentPage={currentPage} data={{ totalPages }} />
+  </section>)
 }
 
 export default FavoritePage
