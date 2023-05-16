@@ -35,6 +35,7 @@ const Search = () => {
         onChange={handleChange}
       />
       <PrimaryButton
+        disabled={!search && true}
         title='Поиск'
         size='small'
         type='submit'

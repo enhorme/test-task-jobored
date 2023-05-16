@@ -10,9 +10,11 @@ export const vacanciesApi = api.injectEndpoints({
         }
       },
       transformResponse: (response) => {
-        response.totalPages = response?.total > 500 ?
-          125 :
-          Math.ceil(response?.total / 4)
+        if (response?.objects?.length) {
+          response.totalPages = response?.total > 500 ?
+            125 :
+            Math.ceil(response?.total / 4)
+        }
         return response
       }
     }),
