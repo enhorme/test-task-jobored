@@ -7,7 +7,7 @@
   border: 1px solid $grey-200;
   border-radius: 0.5rem;
   align-items: center;
-  padding: 0 11px 0 13px;
+  padding: 0 0.688rem 0 0.813rem;
   justify-content: space-between;
   position: relative;
   gap: 0.55rem;
@@ -19,8 +19,8 @@
     outline: none;
     font-style: normal;
     font-weight: 400;
-    font-size: 14px;
-    padding: 13.5px 0;
+    font-size: 0.875rem;
+    padding: 0.844rem 0;
 
     &::placeholder {
       color: $grey-500;

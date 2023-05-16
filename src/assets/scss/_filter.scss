@@ -19,7 +19,7 @@
     display: flex;
     height: auto;
     font-family: $font-main, sans-serif;
-    padding: 11px 2rem 11px 0.7rem;
+    padding: 0.688rem 2rem 0.688rem 0.7rem;
     border: 1px solid $grey-300;
     border-radius: 0.5rem;
     font-style: normal;
@@ -39,22 +39,22 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2rem;
-    gap: 67px;
+    gap: 4.188rem;
   }
 
   &__title {
     font-weight: 700;
-    font-size: 20px;
+    font-size: 1.25rem;
     line-height: 1;
   }
 
   &__reset {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 0.25rem;
     font-weight: 500;
-    font-size: 14px;
-    line-height: 20px;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
     color: $grey-500;
     cursor: pointer;
     transition: 0.2s ease-in;
@@ -86,7 +86,7 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
   }
 
   .select-arrow-open {
@@ -96,7 +96,7 @@
 
 
   &__subtitle {
-    line-height: 19px;
+    line-height: 1.188rem;
     font-weight: 700;
   }
 
@@ -104,7 +104,7 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
   }
 }
 
