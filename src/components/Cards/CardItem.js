@@ -10,7 +10,7 @@ import {
 } from '../../redux/slices/favoriteSlice'
 import { conditionSalaryString } from '../../utils/'
 
-const CardItem = ({ vacancy }) => {
+const CardItem = ({ vacancy, full = false }) => {
   const [inFavorites, setInFavorites] = useState(false)
   const favorites = useSelector(selectFavorites)
 
@@ -51,14 +51,19 @@ const CardItem = ({ vacancy }) => {
 
   return (
     <div className='card-item' data-elem={`vacancy-${id}`}>
-      <div className='card-item__info'>
-        <NavLink className='info__title' to={`/vacancies/${id}`}>
+      <div className={`card-item__info ${full ? 'card-item__info-full' : ''}`}>
+        <NavLink className={`info__title ${full ? 'info__title-full' : ''}`}
+                 to={`/vacancies/${id}`}>
           {profession}
         </NavLink>
         <div className='info__job'>
-          <span className='info__job__salary'>{salary}</span>
+          <span className={`info__job__salary ${full ?
+            'info__job__salary-full' :
+            ''}`}>{salary}</span>
           <span className='info__job__divider'>•</span>
-          <span className='info__job__time'>{workTime}</span>
+          <span className={`info__job__time ${full ?
+            'info__job__time-full' :
+            ''}`}>{workTime}</span>
         </div>
         <div className='info__location'>
           <Location />

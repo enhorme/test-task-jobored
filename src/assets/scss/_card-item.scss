@@ -22,6 +22,10 @@
     flex-direction: column;
     gap: 0.695rem;
     flex-grow: 1;
+
+    &-full {
+      gap: 1.031rem
+    }
   }
 
   &__favorites {
@@ -56,6 +60,17 @@
     &:visited {
       color: #9547cc;
     }
+
+    &-full {
+      color: $black;
+      font-weight: 700;
+      font-size: 1.75rem;
+      line-height: 2.125rem;
+
+      &:visited {
+        color: $black;
+      }
+    }
   }
 
   &__job {
@@ -73,6 +88,12 @@
     font-size: 1rem;
     line-height: 1.25rem;
     color: $black;
+
+    &-full {
+      font-weight: 700;
+      font-size: 1.25rem;
+    }
+
     @include sm {
       font-size: 0.875rem;
     }
@@ -92,6 +113,12 @@
   &__job__time {
     font-size: 1rem;
     line-height: 1.25rem;
+
+    &-full {
+      font-size: 1rem;
+      line-height: 1rem;
+    }
+
     @include sm {
       font-size: 0.875rem;
     }

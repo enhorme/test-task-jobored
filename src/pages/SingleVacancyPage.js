@@ -16,7 +16,7 @@ const SingleVacancyPage = () => {
   if (isError) return <EmptyState />
   return (
     <Container className='container-single'>
-      <CardItem vacancy={data} />
+      <CardItem vacancy={data} full={true} />
       <CardDescription data={data?.vacancyRichText} />
     </Container>
   )
