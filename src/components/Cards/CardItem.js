@@ -38,7 +38,7 @@ const CardItem = ({ vacancy }) => {
     if (favorites?.data?.findIndex((vacancy) => vacancy.id === id) !== -1) {
       setInFavorites(true)
     }
-  }, [])
+  }, [favorites, id])
 
   const handleChangeFavorite = () => {
     if (inFavorites) {
