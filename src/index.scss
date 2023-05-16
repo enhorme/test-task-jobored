@@ -5,6 +5,17 @@ html {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  @include sm {
+    font-size: 8px;
+  }
+
+  @include md {
+    font-size: 12px;
+  }
+
+  @include lg {
+    font-size: 14px;
+  }
 }
 
 *,
@@ -21,11 +32,14 @@ body {
   margin: 0;
   font-family: $font-main, sans-serif;
   font-weight: 400;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: $black;
   background-color: $grey-100;
   overflow-x: hidden;
+
+
 }
 
 code {

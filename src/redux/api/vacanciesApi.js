@@ -9,7 +9,7 @@ export const vacanciesApi = api.injectEndpoints({
           params: params
         }
       },
-      transformResponse: (response, meta, arg) => {
+      transformResponse: (response) => {
         response.totalPages = response?.total > 500 ?
           125 :
           Math.ceil(response?.total / 4)
@@ -17,7 +17,7 @@ export const vacanciesApi = api.injectEndpoints({
       }
     }),
     getVacancyById: builder.query({
-      query: (id) => {
+      query: ({ id }) => {
         return {
           url: `/vacancies/${id}/`
         }
@@ -27,5 +27,5 @@ export const vacanciesApi = api.injectEndpoints({
 })
 export const {
   useGetVacanciesQuery,
-  useGetVacanciesByIdsQuery
+  useGetVacancyByIdQuery
 } = vacanciesApi

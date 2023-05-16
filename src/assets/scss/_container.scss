@@ -1,7 +1,17 @@
+@import 'variables';
+
 .container {
   max-width: 1116px;
   margin: 0 auto;
+
+  &-single {
+    max-width: 773px;
+    @include md {
+      padding: 0 0.75rem;
+    }
+  }
 }
+
 
 .main {
   display: flex;
@@ -9,6 +19,20 @@
   align-items: flex-start;
   justify-content: center;
   gap: 1.72rem;
+
+  @include lg {
+    padding: 0 2rem;
+    gap: 1rem;
+  }
+  @include md {
+    align-items: stretch;
+    flex-direction: column;
+    padding: 0 1rem;
+  }
+  @include sm {
+    padding: 0 0.5rem;
+
+  }
 
   section {
     flex: 1;

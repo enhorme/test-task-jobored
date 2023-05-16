@@ -22,3 +22,27 @@ $background-color-grey: #f5f5f5;
 // FONTS
 $font-main: Inter;
 $font-logo: Poppins;
+
+//Breakpoints
+$screen-sm-min: 575px;
+$screen-md-min: 775px;
+$screen-lg-min: 1115px;
+
+
+@mixin sm {
+  @media (max-width: $screen-sm-min) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media (max-width: $screen-md-min) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media (max-width: $screen-lg-min) {
+    @content;
+  }
+}
