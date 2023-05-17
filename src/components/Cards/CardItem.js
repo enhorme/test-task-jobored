@@ -49,21 +49,24 @@ const CardItem = ({ vacancy, full = false }) => {
     setInFavorites((prev) => !prev)
   }
 
+  const infoClass = `card-item__info ${full ? 'card-item__info-full' : ''}`;
+  const infoTitleClass = `info__title ${full ? 'info__title-full' : ''}`;
+  const jobSalaryClass = `info__job__salary ${full ?
+    'info__job__salary-full' :
+    ''}`;
+  const jobTimeClass = `info__job__time ${full ? 'info__job__time-full' : ''}`;
+
   return (
     <div className='card-item' data-elem={`vacancy-${id}`}>
-      <div className={`card-item__info ${full ? 'card-item__info-full' : ''}`}>
-        <NavLink className={`info__title ${full ? 'info__title-full' : ''}`}
+      <div className={infoClass}>
+        <NavLink className={infoTitleClass}
                  to={`/vacancies/${id}`}>
           {profession}
         </NavLink>
         <div className='info__job'>
-          <span className={`info__job__salary ${full ?
-            'info__job__salary-full' :
-            ''}`}>{salary}</span>
+          <span className={jobSalaryClass}>{salary}</span>
           <span className='info__job__divider'>•</span>
-          <span className={`info__job__time ${full ?
-            'info__job__time-full' :
-            ''}`}>{workTime}</span>
+          <span className={jobTimeClass}>{workTime}</span>
         </div>
         <div className='info__location'>
           <Location />
