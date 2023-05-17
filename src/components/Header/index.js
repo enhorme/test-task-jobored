@@ -3,6 +3,7 @@ import { ReactComponent as Logo } from '../../assets/images/logo.svg'
 import Container from '../Container'
 
 const Header = () => {
+
   return (
     <Container className='header__container'>
       <div className='header__logo'>

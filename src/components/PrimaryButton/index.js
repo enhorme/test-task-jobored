@@ -1,3 +1,5 @@
+import { memo } from 'react'
+
 const PrimaryButton = ({ size = 'm', title }) => {
   return (
     <button
@@ -10,4 +12,4 @@ const PrimaryButton = ({ size = 'm', title }) => {
   )
 }
 
-export default PrimaryButton
+export default memo(PrimaryButton)
