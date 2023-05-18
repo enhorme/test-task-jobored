@@ -1,11 +1,13 @@
 import { NumberInput } from '@mantine/core'
 import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+
 import { ReactComponent as Close } from '../../assets/images/close.svg'
 import { selectFilter } from '../../redux/selectors'
 import { resetFilter, setFilters } from '../../redux/slices/filterSlice'
 import PrimaryButton from '../PrimaryButton'
 import CustomSelect from './CustomSelect'
+
+import { useDispatch, useSelector } from 'react-redux'
 
 const Filter = () => {
 

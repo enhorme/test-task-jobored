@@ -51,6 +51,7 @@ const selectDataAndTotalPagesForFavoritePage = createSelector(
 export {
   selectFilter,
   selectFavorites,
+  selectFavoritesData,
   selectFilterWithoutEmptyFields,
   setlectAuthState,
   selectDataAndTotalPagesForFavoritePage

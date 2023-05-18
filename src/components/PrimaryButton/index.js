@@ -1,9 +1,11 @@
 import { memo } from 'react'
+import classNames from 'classnames'
 
 const PrimaryButton = ({ size = 'm', title }) => {
   return (
     <button
-      className={`primary-button ${size === 'small' && 'primary-button-small'}`}
+      className={classNames('primary-button',
+        { 'primary-button-small': size === 'small' })}
       data-elem='search-button'
 
     >

@@ -1,4 +1,5 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
+
 import MainLayout from './layouts/MainLayout'
 import FavoritePage from './pages/FavoritePage'
 import HomePage from './pages/HomePage'

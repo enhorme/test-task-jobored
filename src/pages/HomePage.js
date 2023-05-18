@@ -9,7 +9,7 @@ const HomePage = () => {
       <Container className='main'>
         <Filter />
         <section>
-          <Search />
+          <Search placeHolder='Введите название вакансии' buttonTitle='Поиск' />
           <Cards />
         </section>
       </Container>

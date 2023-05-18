@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
+
 import { ReactComponent as SearchIcon } from '../../assets/images/search.svg'
 import { setKeyword } from '../../redux/slices/filterSlice'
 
 import PrimaryButton from '../PrimaryButton'
 
-const Search = () => {
+const Search = ({ placeHolder, buttonTitle }) => {
   const [search, setSearch] = useState('')
   const dispatch = useDispatch()
 
@@ -28,7 +29,7 @@ const Search = () => {
       <SearchIcon />
       <input
         data-elem='search-input'
-        placeholder='Введите название вакансии'
+        placeholder={placeHolder}
         className='search__input'
         type='text'
         value={search}
@@ -36,7 +37,7 @@ const Search = () => {
       />
       <PrimaryButton
         disabled={!search && true}
-        title='Поиск'
+        title={buttonTitle}
         size='small'
         type='submit'
       />

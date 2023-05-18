@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
+import classNames from 'classnames'
+
 import { ReactComponent as Location } from '../../assets/images/location.svg'
 import { ReactComponent as Star } from '../../assets/images/star.svg'
-import { selectFavorites } from '../../redux/selectors'
+import { selectFavoritesData } from '../../redux/selectors'
+
 import {
   addToFavorite,
   removeFromFavorite
@@ -12,7 +15,7 @@ import { conditionSalaryString } from '../../utils/'
 
 const CardItem = ({ vacancy, full = false }) => {
   const [inFavorites, setInFavorites] = useState(false)
-  const favorites = useSelector(selectFavorites)
+  const favoritesData = useSelector(selectFavoritesData)
 
   const dispatch = useDispatch()
 
@@ -21,24 +24,24 @@ const CardItem = ({ vacancy, full = false }) => {
     id,
     town: { title: town },
     type_of_work: { title: workTime },
-    payment_to,
-    payment_from,
+    payment_to: paymentTo,
+    payment_from: paymentFrom,
     currency,
     agreement
   } = vacancy
 
   const salary = conditionSalaryString({
-    payment_from,
-    payment_to,
+    paymentFrom,
+    paymentTo,
     currency,
     agreement
   })
 
   useEffect(() => {
-    if (favorites?.data?.findIndex((vacancy) => vacancy.id === id) !== -1) {
+    if (favoritesData.findIndex((vacancy) => vacancy.id === id) !== -1) {
       setInFavorites(true)
     }
-  }, [favorites, id])
+  }, [favoritesData, id])
 
   const handleChangeFavorite = () => {
     if (inFavorites) {
@@ -49,24 +52,21 @@ const CardItem = ({ vacancy, full = false }) => {
     setInFavorites((prev) => !prev)
   }
 
-  const infoClass = `card-item__info ${full ? 'card-item__info-full' : ''}`;
-  const infoTitleClass = `info__title ${full ? 'info__title-full' : ''}`;
-  const jobSalaryClass = `info__job__salary ${full ?
-    'info__job__salary-full' :
-    ''}`;
-  const jobTimeClass = `info__job__time ${full ? 'info__job__time-full' : ''}`;
-
   return (
     <div className='card-item' data-elem={`vacancy-${id}`}>
-      <div className={infoClass}>
-        <NavLink className={infoTitleClass}
+      <div className={classNames('card-item__info',
+        { 'card-item__info-full': full })}>
+        <NavLink className={classNames('info__title',
+          { 'info__title-full': full })}
                  to={`/vacancies/${id}`}>
           {profession}
         </NavLink>
         <div className='info__job'>
-          <span className={jobSalaryClass}>{salary}</span>
+          <span className={classNames('info__job__salary',
+            { 'info__job__salary-full': full })}>{salary}</span>
           <span className='info__job__divider'>•</span>
-          <span className={jobTimeClass}>{workTime}</span>
+          <span className={classNames('info__job__time',
+            { 'info__job__time-full': full })}>{workTime}</span>
         </div>
         <div className='info__location'>
           <Location />
@@ -76,9 +76,9 @@ const CardItem = ({ vacancy, full = false }) => {
       <Star
         data-elem={`vacancy-${id}-shortlist-button`}
         onClick={handleChangeFavorite}
-        className={`card-item__favorites ${
-          inFavorites && 'card-item__favorites-liked'
-        }`}
+        className={classNames('card-item__favorites', {
+          'card-item__favorites-liked': inFavorites
+        })}
       />
     </div>
   )

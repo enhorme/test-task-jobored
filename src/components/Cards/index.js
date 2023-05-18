@@ -1,6 +1,8 @@
 import { useSelector } from 'react-redux'
+
 import { useGetVacanciesQuery } from '../../redux/api/vacanciesApi'
 import { selectFilterWithoutEmptyFields } from '../../redux/selectors'
+
 import Pagination from '../Pagination'
 import Spinner from '../Spinner'
 import CardsList from './CardsList'

@@ -1,4 +1,9 @@
 {
+  "importOrder": [
+    "^[./]"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
   "trailingComma": "none",
   "semi": false,
   "singleQuote": true

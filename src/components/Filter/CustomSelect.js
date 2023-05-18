@@ -1,6 +1,7 @@
 import { Loader, Select } from '@mantine/core'
-
 import { useState } from 'react'
+import classNames from 'classnames'
+
 import {
   ReactComponent as SelectArrow
 } from '../../assets/images/select-arrow.svg'
@@ -22,7 +23,7 @@ const CustomSelect = ({ catalog, setCatalog }) => {
         isLoading || isFetching ? (
           <Loader color='grey' size='xs' />
         ) : (
-          <SelectArrow className={open ? 'select-arrow-open' : undefined} />
+          <SelectArrow className={classNames({ 'select-arrow-open': open })} />
         )
       }
       disabled={!isSuccess}

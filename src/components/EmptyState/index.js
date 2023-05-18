@@ -1,8 +1,9 @@
 import { useLocation } from 'react-router-dom'
+
 import {
   ReactComponent as EmptyStateLogo
 } from '../../assets/images/empty-state.svg'
-import SecondaryButton from './SecondaryButton'
+import SecondaryButton from '../SecondaryButton/SecondaryButton'
 
 const EmptyState = () => {
   const location = useLocation()
