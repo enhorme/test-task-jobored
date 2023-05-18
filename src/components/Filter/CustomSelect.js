@@ -1,5 +1,5 @@
 import { Loader, Select } from '@mantine/core'
-import { useState } from 'react'
+import { memo, useState } from 'react'
 import classNames from 'classnames'
 
 import {
@@ -41,4 +41,4 @@ const CustomSelect = ({ catalog, setCatalog }) => {
   )
 }
 
-export default CustomSelect
+export default memo(CustomSelect)

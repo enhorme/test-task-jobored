@@ -2,7 +2,6 @@ import { createSelector } from '@reduxjs/toolkit'
 
 const selectFavorites = (state) => state.favorite
 const selectFilter = (state) => state.filter
-const setlectAuthState = (state) => state.auth
 
 const selectFilterWithoutEmptyFields = createSelector(
   [selectFilter],
@@ -48,11 +47,17 @@ const selectDataAndTotalPagesForFavoritePage = createSelector(
   })
 )
 
+const selectItemIsInFavorites = createSelector([selectFavorites, (_, id) => id],
+  (favoriteData, id) => {
+    return favoriteData?.data?.findIndex(
+      (vacancy) => vacancy.id === id) !== -1
+  })
+
 export {
+  selectItemIsInFavorites,
   selectFilter,
   selectFavorites,
   selectFavoritesData,
   selectFilterWithoutEmptyFields,
-  setlectAuthState,
   selectDataAndTotalPagesForFavoritePage
 }

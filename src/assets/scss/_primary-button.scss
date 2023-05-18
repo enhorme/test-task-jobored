@@ -15,11 +15,15 @@
   transition: 0.2s ease-in;
 
   &:hover {
-    background-color: $blue-400;
+    &:not([disabled]) {
+      background-color: $blue-400;
+    }
   }
 
   &:active {
-    background-color: $blue-600;
+    &:not([disabled]) {
+      background-color: $blue-600;
+    }
   }
 
   &-small {

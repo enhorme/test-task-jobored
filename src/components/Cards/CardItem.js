@@ -5,7 +5,7 @@ import classNames from 'classnames'
 
 import { ReactComponent as Location } from '../../assets/images/location.svg'
 import { ReactComponent as Star } from '../../assets/images/star.svg'
-import { selectFavoritesData } from '../../redux/selectors'
+import { selectItemIsInFavorites } from '../../redux/selectors'
 
 import {
   addToFavorite,
@@ -14,8 +14,12 @@ import {
 import { conditionSalaryString } from '../../utils/'
 
 const CardItem = ({ vacancy, full = false }) => {
+
+  const favoritesData = useSelector(
+    (state) =>
+      selectItemIsInFavorites(state, vacancy.id))
+
   const [inFavorites, setInFavorites] = useState(false)
-  const favoritesData = useSelector(selectFavoritesData)
 
   const dispatch = useDispatch()
 
@@ -38,10 +42,10 @@ const CardItem = ({ vacancy, full = false }) => {
   })
 
   useEffect(() => {
-    if (favoritesData.findIndex((vacancy) => vacancy.id === id) !== -1) {
-      setInFavorites(true)
-    }
-  }, [favoritesData, id])
+
+    setInFavorites(favoritesData)
+
+  }, [favoritesData])
 
   const handleChangeFavorite = () => {
     if (inFavorites) {

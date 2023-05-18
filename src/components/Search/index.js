@@ -36,7 +36,7 @@ const Search = ({ placeHolder, buttonTitle }) => {
         onChange={handleChange}
       />
       <PrimaryButton
-        disabled={!search && true}
+        disabled={!search}
         title={buttonTitle}
         size='small'
         type='submit'

@@ -11,13 +11,9 @@ const Cards = () => {
   const filter = useSelector(selectFilterWithoutEmptyFields)
   const { data, isFetching, isLoading, isError } = useGetVacanciesQuery(filter)
 
-  if (isFetching || isLoading) {
-    return <Spinner />
-  }
+  if (isFetching || isLoading) return <Spinner />
 
-  if (isError) {
-    return <div>Error</div>
-  }
+  if (isError) return <div>Error</div>
 
   const vacancies = data?.objects || []
 
