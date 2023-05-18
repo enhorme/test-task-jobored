@@ -1,24 +1,27 @@
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { ReactComponent as SearchIcon } from '../../assets/images/search.svg'
 import { setKeyword } from '../../redux/slices/filterSlice'
 
 import PrimaryButton from '../PrimaryButton'
+import { selectFilter } from '../../redux/selectors'
 
 const Search = ({ placeHolder, buttonTitle }) => {
-  const [search, setSearch] = useState('')
+  const { keyword } = useSelector(selectFilter)
+  const [search, setSearch] = useState(keyword || '')
   const dispatch = useDispatch()
 
   const handleSubmit = (e) => {
     e.preventDefault()
     dispatch(setKeyword({ keyword: search }))
-    setSearch('')
   }
 
   const handleChange = (e) => {
     if (e.key === 'Enter') {
-      handleSubmit()
+      if (search) {
+        handleSubmit()
+      }
     } else {
       setSearch(e.target.value)
     }
@@ -36,7 +39,6 @@ const Search = ({ placeHolder, buttonTitle }) => {
         onChange={handleChange}
       />
       <PrimaryButton
-        disabled={!search}
         title={buttonTitle}
         size='small'
         type='submit'
