@@ -1,7 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-
+import { Mutex } from 'async-mutex'
 import { authConfig } from '../../config/authConfig'
 import { setCredentials } from '../slices/authSlice'
+
+const mutex = new Mutex()
 
 const BASE_URL = process.env.REACT_APP_PROXY_ENDPOINT
 const XSECRETKEY = process.env.REACT_APP_XSECRETKEY
@@ -24,22 +26,37 @@ const baseQuery = fetchBaseQuery({
 })
 
 const baseQueryWithReauth = async (args, api, extraOptions) => {
+  await mutex.waitForUnlock()
+
+  let result = await baseQuery(args, api, extraOptions)
   const auth = api.getState().auth
+
   if (!auth.token || auth.ttl < Date.now() / 1000) {
 
-    const { data } = await baseQuery({
-      url: '/oauth2/password/',
-      method: 'GET',
-      params: authConfig,
-      credentials: 'include'
-    }, api, extraOptions)
+    if (!mutex.isLocked()) {
+      const release = await mutex.acquire()
+      try {
+        const { data } = await baseQuery({
+          url: '/oauth2/password/',
+          method: 'GET',
+          params: authConfig,
+          credentials: 'include'
+        }, api, extraOptions)
 
-    api.dispatch(setCredentials({
-      token: data?.access_token,
-      ttl: data?.ttl
-    }))
+        if (data) {
+          api.dispatch(setCredentials({
+            token: data?.access_token,
+            ttl: data?.ttl
+          }))
+        }
+      } finally {
+        release()
+      }
+    } else {
+      await mutex.waitForUnlock()
+    }
   }
-  return baseQuery(args, api, extraOptions)
+  return result
 }
 
 export const api = createApi({

@@ -82,13 +82,13 @@ const CardItem = ({ vacancy, full = false }) => {
           <span className='info__location__title'>{town}</span>
         </div>
       </div>
-      <Star
-        data-elem={`vacancy-${id}-shortlist-button`}
-        onClick={handleChangeFavorite}
-        className={classNames('card-item__favorites', {
-          'card-item__favorites-liked': inFavorites
-        })}
-      />
+      <div data-elem={`vacancy-${id}-shortlist-button`}
+           onClick={handleChangeFavorite}
+           className={classNames('card-item__favorites', {
+             'card-item__favorites-liked': inFavorites
+           })}>
+        <Star />
+      </div>
     </div>
   )
 }

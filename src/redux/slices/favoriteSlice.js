@@ -12,8 +12,12 @@ const favoriteSlice = createSlice({
 
     },
     removeFromFavorite: (state, action) => {
-      state.data = state.data.filter(
+      const newData = state.data.filter(
         (vacancy) => vacancy.id !== action.payload.id)
+      if (Math.ceil(newData.length / 4) < state.page) {
+        state.page = --state.page || 1
+      }
+      state.data = newData
 
     },
     setFavoritePage: (state, action) => {

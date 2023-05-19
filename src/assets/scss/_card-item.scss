@@ -25,12 +25,6 @@
 
   }
 
-  &:active:not(&-full) {
-    .info__title {
-      color: $blue-600;
-    }
-  }
-
 
   &-full {
     cursor: default;
@@ -48,22 +42,32 @@
   }
 
   &__favorites {
-    flex-shrink: 0;
+    display: flex;
+    justify-content: flex-end;
     cursor: pointer;
-    max-width: 1.375rem;
-    max-height: 1.375rem;
+    min-width: 2rem;
+    min-height: 2rem;
 
-    &:hover {
-      stroke: $blue-500-main;
+    svg {
+      max-width: 1.375rem;
+      max-height: 1.375rem;
+
+      &:hover {
+        stroke: $blue-500-main;
+      }
+
+      &:active {
+        fill: $blue-500-main;
+      }
     }
 
-    &:active {
-      fill: $blue-500-main;
-    }
 
     &-liked {
-      fill: $blue-500-main;
-      stroke: $blue-500-main;
+      svg {
+        fill: $blue-500-main;
+        stroke: $blue-500-main;
+      }
+
     }
   }
 }
