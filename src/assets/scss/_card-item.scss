@@ -16,6 +16,25 @@
   gap: 2rem;
   border: 1px solid $grey-200;
   border-radius: 0.75rem;
+  cursor: pointer;
+
+  &:hover:not(&-full) {
+    .info__title {
+      color: $blue-400;
+    }
+
+  }
+
+  &:active:not(&-full) {
+    .info__title {
+      color: $blue-600;
+    }
+  }
+
+
+  &-full {
+    cursor: default;
+  }
 
   &__info {
     display: flex;
@@ -57,19 +76,12 @@
     line-height: 1.5rem;
     color: $blue-500-main;
 
-    &:visited {
-      color: #9547cc;
-    }
-
     &-full {
       color: $black;
       font-weight: 700;
       font-size: 1.75rem;
       line-height: 2.125rem;
 
-      &:visited {
-        color: $black;
-      }
     }
   }
 

@@ -1,10 +1,12 @@
 import { NavLink } from 'react-router-dom'
+import { useMatch } from 'react-router-dom'
 
 import { ReactComponent as Logo } from '../../assets/images/logo.svg'
 import Container from '../Container'
 
 const Header = () => {
-
+  const match = useMatch('/vacancies/:id')
+  
   return (
     <Container className='header__container'>
       <div className='header__logo'>
@@ -16,7 +18,7 @@ const Header = () => {
           <li className='nav__item'>
             <NavLink
               className={({ isActive }) =>
-                isActive ? 'nav__item-active' : 'nav__item'
+                isActive || match ? 'nav__item-active' : 'nav__item'
               }
               to='/'
             >

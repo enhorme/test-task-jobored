@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { NavLink } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import classNames from 'classnames'
 
 import { ReactComponent as Location } from '../../assets/images/location.svg'
@@ -14,7 +14,6 @@ import {
 import { conditionSalaryString } from '../../utils/'
 
 const CardItem = ({ vacancy, full = false }) => {
-
   const favoritesData = useSelector(
     (state) =>
       selectItemIsInFavorites(state, vacancy.id))
@@ -22,7 +21,7 @@ const CardItem = ({ vacancy, full = false }) => {
   const [inFavorites, setInFavorites] = useState(false)
 
   const dispatch = useDispatch()
-
+  const navigate = useNavigate()
   const {
     profession,
     id,
@@ -47,7 +46,12 @@ const CardItem = ({ vacancy, full = false }) => {
 
   }, [favoritesData])
 
-  const handleChangeFavorite = () => {
+  const handleClick = () => {
+    if (!full) navigate(`/vacancies/${id}`)
+  }
+
+  const handleChangeFavorite = (e) => {
+    e.stopPropagation()
     if (inFavorites) {
       dispatch(removeFromFavorite({ id }))
     } else {
@@ -57,14 +61,15 @@ const CardItem = ({ vacancy, full = false }) => {
   }
 
   return (
-    <div className='card-item' data-elem={`vacancy-${id}`}>
+    <div className={classNames('card-item', { 'card-item-full': full })}
+         data-elem={`vacancy-${id}`}
+         onClick={handleClick}>
       <div className={classNames('card-item__info',
         { 'card-item__info-full': full })}>
-        <NavLink className={classNames('info__title',
-          { 'info__title-full': full })}
-                 to={`/vacancies/${id}`}>
+        <span className={classNames('info__title',
+          { 'info__title-full': full })}>
           {profession}
-        </NavLink>
+        </span>
         <div className='info__job'>
           <span className={classNames('info__job__salary',
             { 'info__job__salary-full': full })}>{salary}</span>
