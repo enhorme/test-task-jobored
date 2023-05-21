@@ -2,18 +2,18 @@ import { NumberInput } from '@mantine/core'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
+import { selectMemoFilterFields } from '../../redux/selectors'
 import { ReactComponent as Close } from '../../assets/images/close.svg'
-import { selectFilter } from '../../redux/selectors'
 import { resetFilter, setFilters } from '../../redux/slices/filterSlice'
 import PrimaryButton from '../PrimaryButton'
 import CustomSelect from './CustomSelect'
 
 const Filter = () => {
-
-  const filter = useSelector(selectFilter)
-  const [paymentFrom, setPaymentFrom] = useState(filter?.payment_from || '')
-  const [paymentTo, setPaymentTo] = useState(filter?.payment_to || '')
-  const [catalog, setCatalog] = useState(filter?.catalogues || '')
+  const { payment_from, payment_to, catalogues } = useSelector(
+    selectMemoFilterFields)
+  const [paymentFrom, setPaymentFrom] = useState(payment_from || '')
+  const [paymentTo, setPaymentTo] = useState(payment_to || '')
+  const [catalog, setCatalog] = useState(catalogues || '')
 
   const dispatch = useDispatch()
 

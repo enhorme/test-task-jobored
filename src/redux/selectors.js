@@ -2,7 +2,19 @@ import { createSelector } from '@reduxjs/toolkit'
 
 const selectFavorites = (state) => state.favorite
 const selectFilter = (state) => state.filter
+const selectPaymentFrom = (state) => state.filter.payment_from
+const selectPaymentTo = (state) => state.filter.payment_to
+const selectCatalogues = (state) => state.filter.catalogues
 const selectFilterKeyword = (state) => state.filter.keyword
+
+const selectMemoFilterFields = createSelector(
+  [selectPaymentFrom, selectPaymentTo, selectCatalogues],
+  (paymentFrom, paymentTo, catalogues) => ({
+    payment_from: paymentFrom,
+    payment_to: paymentTo,
+    catalogues: catalogues
+  })
+)
 
 const selectFavoritesLS = (state) => state.favoritesLS.ids
 
@@ -70,6 +82,7 @@ const selectItemsIsInFavoritesLS = createSelector(
 
 export {
   selectItemsIsInFavoritesLS,
+  selectMemoFilterFields,
   selectFavoritesLS,
   selectFilter,
   selectFilterKeyword,
