@@ -6,6 +6,7 @@ import { selectFilterWithoutEmptyFields } from '../../redux/selectors'
 import Pagination from '../Pagination'
 import Spinner from '../Spinner'
 import CardsList from './CardsList'
+import EmptyState from '../EmptyState'
 
 const Cards = () => {
   const filter = useSelector(selectFilterWithoutEmptyFields)
@@ -15,11 +16,16 @@ const Cards = () => {
 
   if (isError) return <div>Error</div>
 
-  const vacancies = data?.objects || []
+  const vacancies = data.objects
 
+  if (!vacancies.length)
+    return (
+      <EmptyState />
+    )
+  
   return (<>
     <CardsList vacancies={vacancies} />
-    <Pagination data={data} currentPage={filter?.page} />
+    <Pagination totalPages={data.totalPages} currentPage={filter?.page} />
   </>)
 }
 

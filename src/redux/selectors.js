@@ -2,13 +2,14 @@ import { createSelector } from '@reduxjs/toolkit'
 
 const selectFavorites = (state) => state.favorite
 const selectFilter = (state) => state.filter
+const selectFilterKeyword = (state) => state.filter.keyword
 
 const selectFilterWithoutEmptyFields = createSelector(
   [selectFilter],
   (filter) => {
     const filteredState = Object.keys(filter).reduce((result, key) => {
       const value = filter[key]
-      if (value !== '' && value !== 0) {
+      if (key === 'page' || (value !== '' && value !== 0)) {
         result[key] = value
       }
       return result
@@ -32,8 +33,9 @@ const selectFavoritesTotalPages = createSelector(selectFavoritesData,
 const selectFavoritesDataByPage = createSelector(
   [selectFavoritesData, selectFavoritesPage],
   (data, page) => {
-    const startIndex = (page - 1) * 4
-    const endIndex = startIndex + 4
+    const vacanciesPerPage = 4
+    const startIndex = page * vacanciesPerPage
+    const endIndex = startIndex + vacanciesPerPage
     return data.slice(startIndex, endIndex)
   }
 )
@@ -56,6 +58,7 @@ const selectItemIsInFavorites = createSelector([selectFavorites, (_, id) => id],
 export {
   selectItemIsInFavorites,
   selectFilter,
+  selectFilterKeyword,
   selectFavorites,
   selectFavoritesData,
   selectFilterWithoutEmptyFields,

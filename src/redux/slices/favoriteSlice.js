@@ -4,7 +4,7 @@ const favoriteSlice = createSlice({
   name: 'favorites',
   initialState: {
     data: [],
-    page: 1
+    page: 0
   },
   reducers: {
     addToFavorite: (state, action) => {
@@ -12,13 +12,13 @@ const favoriteSlice = createSlice({
 
     },
     removeFromFavorite: (state, action) => {
-      const newData = state.data.filter(
+      state.data = state.data.filter(
         (vacancy) => vacancy.id !== action.payload.id)
-      if (Math.ceil(newData.length / 4) < state.page) {
-        state.page = --state.page || 1
-      }
-      state.data = newData
+      const totalAPages = Math.ceil(state.data.length / 4)
 
+      if (totalAPages <= state.page) {
+        state.page = Math.max(state.page - 1, 0)
+      }
     },
     setFavoritePage: (state, action) => {
       state.page = action.payload.page

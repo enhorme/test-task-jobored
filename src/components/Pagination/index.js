@@ -7,15 +7,14 @@ import { ReactComponent as Prev } from '../../assets/images/prev_arrow.svg'
 import { setFavoritePage } from '../../redux/slices/favoriteSlice'
 import { setPage } from '../../redux/slices/filterSlice'
 
-const Pagination = ({ data, currentPage }) => {
+const Pagination = ({ totalPages, currentPage }) => {
   const location = useLocation()
   const dispatch = useDispatch()
 
   function handlePageClick(e) {
-    const page = e.selected + 1
+    const page = e.selected
     dispatch(
       location.pathname === '/' ? setPage({ page }) : setFavoritePage({ page }))
-
   }
 
   return (
@@ -24,11 +23,11 @@ const Pagination = ({ data, currentPage }) => {
       breakLabel='...'
       nextLabel={<Next />}
       previousLabel={<Prev />}
-      forcePage={currentPage - 1}
+      forcePage={currentPage}
       onPageChange={handlePageClick}
       pageRangeDisplayed={3}
       marginPagesDisplayed={1}
-      pageCount={data?.totalPages || 0}
+      pageCount={totalPages}
       renderOnZeroPageCount={null}
     />
   )

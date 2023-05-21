@@ -5,7 +5,7 @@ const initialState = {
   catalogues: '',
   payment_from: '',
   payment_to: '',
-  page: 1,
+  page: 0,
   published: 1,
   count: 4
 }
@@ -22,7 +22,7 @@ const filterSlice = createSlice({
     },
     setKeyword: (state, action) => {
       state.keyword = action.payload.keyword
-      state.page = 1
+      state.page = 0
     },
     resetFilter: () => {
       return initialState
