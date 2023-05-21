@@ -27,8 +27,6 @@ const baseQuery = fetchBaseQuery({
 })
 
 const baseQueryWithReauth = async (args, api, extraOptions) => {
-  await mutex.waitForUnlock()
-
   let result = await baseQuery(args, api, extraOptions)
   const auth = api.getState().auth
 
@@ -53,8 +51,6 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
       } finally {
         release()
       }
-    } else {
-      await mutex.waitForUnlock()
     }
   } else if (auth.ttl < Date.now() / 1000 || result?.error?.status === 410) {
     if (!mutex.isLocked()) {
@@ -82,8 +78,6 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
         result = await baseQuery(args, api, extraOptions)
         release()
       }
-    } else {
-      await mutex.waitForUnlock()
     }
   }
 
