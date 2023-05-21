@@ -1,10 +1,10 @@
 import parse from 'html-react-parser'
 
-const CardDescription = ({ data }) => {
+const CardDescription = ({ vacancyHtml }) => {
 
   return (
     <div className='description'>
-      <div id='description'>{parse(data)}</div>
+      <div id='description'>{parse(vacancyHtml)}</div>
     </div>
   )
 }

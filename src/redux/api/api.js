@@ -22,7 +22,8 @@ const baseQuery = fetchBaseQuery({
     headers.set('content-type', 'application/x-www-form-urlencoded')
 
     return headers
-  }
+  },
+  timeout: 6000
 })
 
 const baseQueryWithReauth = async (args, api, extraOptions) => {

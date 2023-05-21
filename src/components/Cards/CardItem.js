@@ -1,65 +1,22 @@
-import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 import classNames from 'classnames'
 
 import { ReactComponent as Location } from '../../assets/images/location.svg'
 import { ReactComponent as Star } from '../../assets/images/star.svg'
-import { selectItemsIsInFavoritesLS } from '../../redux/selectors'
-import { conditionSalaryString } from '../../utils/'
-import {
-  addIdToFavorite,
-  removeIdFromFavorite
-} from '../../redux/slices/favoritesLSSlice'
-import { removeFromFavorite } from '../../redux/slices/favoriteSlice'
+
+import { useCardItemLogic } from '../../hooks/useCardItemLogic'
 
 const CardItem = ({ vacancy, full = false }) => {
-  const isInFavorites = useSelector(
-    (state) =>
-      selectItemsIsInFavoritesLS(state, vacancy.id))
 
-  const [inFavorites, setInFavorites] = useState(false)
-
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
   const {
     profession,
     id,
-    town: { title: town },
-    type_of_work: { title: workTime },
-    payment_to: paymentTo,
-    payment_from: paymentFrom,
-    currency,
-    agreement
-  } = vacancy
-
-  const salary = conditionSalaryString({
-    paymentFrom,
-    paymentTo,
-    currency,
-    agreement
-  })
-
-  useEffect(() => {
-
-    setInFavorites(isInFavorites)
-
-  }, [isInFavorites])
-
-  const handleClick = () => {
-    if (!full) navigate(`/vacancies/${id}`)
-  }
-
-  const handleChangeFavorite = (e) => {
-    e.stopPropagation()
-    if (inFavorites) {
-      dispatch(removeIdFromFavorite({ id }))
-      dispatch(removeFromFavorite({ id }))
-    } else {
-      dispatch(addIdToFavorite(vacancy.id))
-    }
-    setInFavorites((prev) => !prev)
-  }
+    town,
+    workTime,
+    salary,
+    inFavorites,
+    handleClick,
+    handleChangeFavorite
+  } = useCardItemLogic(vacancy)
 
   return (
     <div className={classNames('card-item', { 'card-item-full': full })}

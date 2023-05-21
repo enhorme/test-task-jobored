@@ -34,9 +34,10 @@ const authPersistConfig = {
 const rootReducer = combineReducers({
   [api.reducerPath]: api.reducer,
   filter: filterReducer,
+  favorite: favoriteReducer,
   auth: persistReducer(authPersistConfig, authReducer),
-  favoritesLS: persistReducer(favoritesLSPersistConfig, favoritesLSReducer),
-  favorite: favoriteReducer
+  favoritesLS: persistReducer(favoritesLSPersistConfig, favoritesLSReducer)
+
 })
 
 export const store = configureStore({
