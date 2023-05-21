@@ -5,7 +5,7 @@ import { setCredentials } from '../slices/authSlice'
 
 const mutex = new Mutex()
 
-const BASE_URL = process.env.REACT_APP_PROXY_ENDPOINT
+const BASE_URL = process.env.REACT_APP_PROXY_ALTERNATIVE_ENDPOINT
 const XSECRETKEY = process.env.REACT_APP_XSECRETKEY
 const CLIENT_SECRET = process.env.REACT_APP_AUTH_CLIENT_SECRET
 

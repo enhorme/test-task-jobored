@@ -61,7 +61,7 @@ const Filter = () => {
               min={0}
             />
             <NumberInput
-              data-elem='salary-from-to'
+              data-elem='salary-to-input'
               value={paymentTo}
               onChange={setPaymentTo}
               placeholder='До'

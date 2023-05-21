@@ -4,24 +4,19 @@ export const conditionSalaryString = ({
                                         currency,
                                         agreement
                                       }) => {
-
   if (agreement) {
     return 'з/п По договоренности'
   }
-  
-  let salary = 'з/п '
-  if (paymentFrom) {
-    salary += `от ${paymentFrom}`
+
+  if (!paymentTo && paymentFrom) {
+    return `з/п от ${paymentFrom} ${currency}`
   }
-  if (paymentTo) {
-    salary =
-      paymentTo !== paymentFrom
-        ? `з/п ${paymentFrom} - ${paymentTo}`
-        : `з/п ${paymentFrom}`
+  if (paymentTo && !paymentFrom) {
+    return `з/п до ${paymentTo} ${currency}`
   }
-  if (currency && (paymentFrom || paymentTo)) {
-    salary += ` ${currency}`
+  if (paymentFrom && paymentTo && paymentTo === paymentFrom) {
+    return `з/п ${paymentTo} ${currency}`
   }
 
-  return salary
+  return `з/п ${paymentFrom} - ${paymentTo} ${currency}`
 }
