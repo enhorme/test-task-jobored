@@ -32,8 +32,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions)
   const auth = api.getState().auth
 
-  if (!auth.token || auth.ttl < Date.now() / 1000) {
-
+  if (!auth.token && !auth.refresh) {
     if (!mutex.isLocked()) {
       const release = await mutex.acquire()
       try {
@@ -45,8 +44,9 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
         }, api, extraOptions)
 
         if (data) {
-          api.dispatch(setCredentials({
+          await api.dispatch(setCredentials({
             token: data?.access_token,
+            refresh: data?.refresh_token,
             ttl: data?.ttl
           }))
         }
@@ -56,12 +56,42 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
     } else {
       await mutex.waitForUnlock()
     }
+  } else if (auth.ttl < Date.now() / 1000 || result?.error?.status === 410) {
+    if (!mutex.isLocked()) {
+      const release = await mutex.acquire()
+      try {
+        const { data } = await baseQuery({
+          url: '/oauth2/refresh_token/',
+          method: 'GET',
+          params: {
+            refresh_token: auth.refresh,
+            client_id: authConfig.client_id,
+            client_secret: authConfig.client_secret
+          },
+          credentials: 'include'
+        }, api, extraOptions)
+
+        if (data) {
+          await api.dispatch(setCredentials({
+            token: data?.access_token,
+            refresh: data?.refresh_token,
+            ttl: data?.ttl
+          }))
+        }
+      } finally {
+        result = await baseQuery(args, api, extraOptions)
+        release()
+      }
+    } else {
+      await mutex.waitForUnlock()
+    }
   }
+
   return result
 }
 
 export const api = createApi({
   reducerPath: 'api',
   baseQuery: baseQueryWithReauth,
-  endpoints: (build) => ({})
+  endpoints: () => ({})
 })
