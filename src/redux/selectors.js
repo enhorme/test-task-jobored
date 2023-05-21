@@ -4,6 +4,8 @@ const selectFavorites = (state) => state.favorite
 const selectFilter = (state) => state.filter
 const selectFilterKeyword = (state) => state.filter.keyword
 
+const selectFavoritesLS = (state) => state.favoritesLS.ids
+
 const selectFilterWithoutEmptyFields = createSelector(
   [selectFilter],
   (filter) => {
@@ -25,8 +27,14 @@ const selectFilterWithoutEmptyFields = createSelector(
 
 const selectFavoritesPage = createSelector(selectFavorites,
   (favorites) => favorites.page)
-const selectFavoritesData = createSelector(selectFavorites,
-  (favorites) => favorites.data)
+
+const selectFavoritesOriginalArgs = createSelector(selectFavorites,
+  (favorites) => favorites.originalArgs)
+
+const selectFavoritesData = createSelector([selectFavorites, selectFavoritesLS],
+  (favorites, ids) => {
+    return favorites?.data.filter((vacancy) => ids.includes(vacancy.id))
+  })
 const selectFavoritesTotalPages = createSelector(selectFavoritesData,
   (data) => Math.ceil(data.length / 4))
 
@@ -41,22 +49,28 @@ const selectFavoritesDataByPage = createSelector(
 )
 
 const selectDataAndTotalPagesForFavoritePage = createSelector(
-  [selectFavoritesDataByPage, selectFavoritesTotalPages, selectFavoritesPage],
-  (dataByPage, totalPages, currentPage) => ({
+  [
+    selectFavoritesDataByPage,
+    selectFavoritesTotalPages,
+    selectFavoritesPage,
+    selectFavoritesOriginalArgs],
+  (dataByPage, totalPages, currentPage, originalArgs) => ({
     data: dataByPage,
     totalPages,
-    currentPage
+    currentPage,
+    originalArgs
   })
 )
 
-const selectItemIsInFavorites = createSelector([selectFavorites, (_, id) => id],
-  (favoriteData, id) => {
-    return favoriteData?.data?.findIndex(
-      (vacancy) => vacancy.id === id) !== -1
+const selectItemsIsInFavoritesLS = createSelector(
+  [selectFavoritesLS, (_, id) => id],
+  (ids, id) => {
+    return ids?.includes(id)
   })
 
 export {
-  selectItemIsInFavorites,
+  selectItemsIsInFavoritesLS,
+  selectFavoritesLS,
   selectFilter,
   selectFilterKeyword,
   selectFavorites,

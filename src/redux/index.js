@@ -15,26 +15,28 @@ import storage from 'redux-persist/lib/storage'
 import { api } from './api/api.js'
 import authReducer from './slices/authSlice'
 import favoriteReducer from './slices/favoriteSlice'
+import favoritesLSReducer from './slices/favoritesLSSlice'
 import filterReducer from './slices/filterSlice'
 
-const favoritesPersistConfig = {
-  key: 'favorite',
+const favoritesLSPersistConfig = {
+  key: 'favoriteLs',
   version: 1,
   storage,
-  blacklist: ['filter', 'auth', 'api']
+  blacklist: ['filter', 'auth', 'api', 'favorite']
 }
 const authPersistConfig = {
   key: 'auth',
   version: 1,
   storage,
-  blacklist: ['filter', 'favorite', 'api']
+  blacklist: ['filter', 'favorite', 'api', 'favorite']
 }
 
 const rootReducer = combineReducers({
   [api.reducerPath]: api.reducer,
   filter: filterReducer,
   auth: persistReducer(authPersistConfig, authReducer),
-  favorite: persistReducer(favoritesPersistConfig, favoriteReducer)
+  favoritesLS: persistReducer(favoritesLSPersistConfig, favoritesLSReducer),
+  favorite: favoriteReducer
 })
 
 export const store = configureStore({

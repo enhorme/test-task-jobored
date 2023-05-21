@@ -5,18 +5,18 @@ import classNames from 'classnames'
 
 import { ReactComponent as Location } from '../../assets/images/location.svg'
 import { ReactComponent as Star } from '../../assets/images/star.svg'
-import { selectItemIsInFavorites } from '../../redux/selectors'
-
-import {
-  addToFavorite,
-  removeFromFavorite
-} from '../../redux/slices/favoriteSlice'
+import { selectItemsIsInFavoritesLS } from '../../redux/selectors'
 import { conditionSalaryString } from '../../utils/'
+import {
+  addIdToFavorite,
+  removeIdFromFavorite
+} from '../../redux/slices/favoritesLSSlice'
+import { removeFromFavorite } from '../../redux/slices/favoriteSlice'
 
 const CardItem = ({ vacancy, full = false }) => {
-  const favoritesData = useSelector(
+  const isInFavorites = useSelector(
     (state) =>
-      selectItemIsInFavorites(state, vacancy.id))
+      selectItemsIsInFavoritesLS(state, vacancy.id))
 
   const [inFavorites, setInFavorites] = useState(false)
 
@@ -42,9 +42,9 @@ const CardItem = ({ vacancy, full = false }) => {
 
   useEffect(() => {
 
-    setInFavorites(favoritesData)
+    setInFavorites(isInFavorites)
 
-  }, [favoritesData])
+  }, [isInFavorites])
 
   const handleClick = () => {
     if (!full) navigate(`/vacancies/${id}`)
@@ -53,9 +53,10 @@ const CardItem = ({ vacancy, full = false }) => {
   const handleChangeFavorite = (e) => {
     e.stopPropagation()
     if (inFavorites) {
+      dispatch(removeIdFromFavorite({ id }))
       dispatch(removeFromFavorite({ id }))
     } else {
-      dispatch(addToFavorite(vacancy))
+      dispatch(addIdToFavorite(vacancy.id))
     }
     setInFavorites((prev) => !prev)
   }
