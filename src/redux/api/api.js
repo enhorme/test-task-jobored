@@ -1,9 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { Mutex } from 'async-mutex'
-import { authConfig } from '../../config/authConfig'
 import { setCredentials } from '../slices/authSlice'
-
-const mutex = new Mutex()
+import { authConfig } from '../../config/authConfig'
 
 const BASE_URL = process.env.REACT_APP_PROXY_ALTERNATIVE_ENDPOINT
 const XSECRETKEY = process.env.REACT_APP_XSECRETKEY
@@ -27,60 +24,79 @@ const baseQuery = fetchBaseQuery({
 })
 
 const baseQueryWithReauth = async (args, api, extraOptions) => {
-  let result = await baseQuery(args, api, extraOptions)
   const auth = api.getState().auth
-
-  if (!auth.token && !auth.refresh) {
-    if (!mutex.isLocked()) {
-      const release = await mutex.acquire()
-      try {
-        const { data } = await baseQuery({
-          url: '/oauth2/password/',
-          method: 'GET',
-          params: authConfig,
-          credentials: 'include'
-        }, api, extraOptions)
-
-        if (data) {
-          await api.dispatch(setCredentials({
-            token: data?.access_token,
-            refresh: data?.refresh_token,
-            ttl: data?.ttl
-          }))
-        }
-      } finally {
-        release()
-      }
+  let result = await baseQuery({
+    ...args,
+    headers: {
+      ...args.headers,
+      Authorization: `Bearer ${auth.token}`
     }
-  } else if (auth.ttl < Date.now() / 1000 || result?.error?.status === 410) {
-    if (!mutex.isLocked()) {
-      const release = await mutex.acquire()
-      try {
-        const { data } = await baseQuery({
-          url: '/oauth2/refresh_token/',
-          method: 'GET',
-          params: {
-            refresh_token: auth.refresh,
-            client_id: authConfig.client_id,
-            client_secret: authConfig.client_secret
-          },
-          credentials: 'include'
-        }, api, extraOptions)
+  }, api, extraOptions)
 
-        if (data) {
-          await api.dispatch(setCredentials({
-            token: data?.access_token,
-            refresh: data?.refresh_token,
-            ttl: data?.ttl
-          }))
-        }
-      } finally {
-        result = await baseQuery(args, api, extraOptions)
-        release()
+  if (result.error && result.error.status === 401) {
+    try {
+      const { data } = await baseQuery({
+        url: '/oauth2/password/',
+        method: 'GET',
+        params: authConfig,
+        credentials: 'include'
+      }, api, extraOptions)
+
+      if (data) {
+        await api.dispatch(setCredentials({
+          token: data?.access_token,
+          refresh: data?.refresh_token,
+          ttl: data?.ttl
+        }))
+
+        const newToken = api.getState().auth.token
+        result = await baseQuery({
+          ...args,
+          headers: {
+            ...args.headers,
+            Authorization: `Bearer ${newToken}`
+          }
+        }, api, extraOptions)
       }
+
+    } catch (e) {
+      console.error(e.message)
     }
+    return result
   }
+  if (result?.error?.status === 410) {
+    try {
+      const { data } = await baseQuery({
+        url: '/oauth2/refresh_token/',
+        method: 'GET',
+        params: {
+          refresh_token: auth.refresh,
+          client_id: authConfig.client_id,
+          client_secret: authConfig.client_secret
+        },
+        credentials: 'include'
+      }, api, extraOptions)
 
+      if (data) {
+        await api.dispatch(setCredentials({
+          token: data?.access_token,
+          refresh: data?.refresh_token,
+          ttl: data?.ttl
+        }))
+        const newToken = api.getState().auth.token
+        result = await baseQuery({
+          ...args,
+          headers: {
+            ...args.headers,
+            Authorization: `Bearer ${newToken}`
+          }
+        }, api, extraOptions)
+      }
+    } catch (e) {
+      console.error(e.message)
+    }
+    return result
+  }
   return result
 }
 

@@ -1,12 +1,9 @@
-import { lazy, Suspense } from 'react'
-
+import { useVacanciesQuery } from '../../hooks/useVacanciesQuery'
 import Pagination from '../Pagination'
 import Spinner from '../Spinner'
 import CardsList from './CardsList'
+import EmptyState from '../EmptyState'
 import { Error } from '../Error'
-import { useVacanciesQuery } from '../../hooks/useVacanciesQuery'
-
-const EmptyState = lazy(() => import('../EmptyState'))
 
 const Cards = () => {
   const {
@@ -22,8 +19,7 @@ const Cards = () => {
 
   if (isError) return <Error />
 
-  if (!vacancies.length) return <Suspense
-    fallback={<Spinner />}><EmptyState /></Suspense>
+  if (!vacancies.length) return <EmptyState />
 
   return (<>
     <CardsList vacancies={vacancies} />
