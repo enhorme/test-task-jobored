@@ -15,7 +15,8 @@ const SingleVacancyPage = () => {
   return (
     <Container className='container-single'>
       <CardItem vacancy={vacancy} full={true} />
-      <CardDescription vacancyHtml={vacancy?.vacancyRichText} />
+      {vacancy?.vacancyRichText ? <
+        CardDescription vacancyHtml={vacancy?.vacancyRichText} /> : null}
     </Container>
   )
 }
