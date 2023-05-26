@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useMatch, useNavigate } from 'react-router-dom'
 
 import { selectItemsIsInFavoritesLS } from '../redux/selectors'
 import { conditionSalaryString } from '../utils'
@@ -11,7 +11,9 @@ import {
 import { removeFromFavorite } from '../redux/slices/favoriteSlice'
 
 export const useCardItemLogic = (vacancy) => {
-  
+
+  const match = useMatch(`/vacancies/${vacancy.id}`)
+
   const isInFavorites = useSelector(
     (state) => selectItemsIsInFavoritesLS(state, vacancy.id))
   const [inFavorites, setInFavorites] = useState(false)
@@ -37,6 +39,7 @@ export const useCardItemLogic = (vacancy) => {
   }, [isInFavorites])
 
   const handleClick = () => {
+    if (match) return
     navigate(`/vacancies/${id}`)
   }
 
